@@ -41,8 +41,6 @@
 ## Features
 
 ![Procedural Generation](https://img.shields.io/badge/Procedural_Generation-1a1a1a?style=for-the-badge&logoColor=44c183)
-![Seed System](https://img.shields.io/badge/Seed_System-1a1a1a?style=for-the-badge&logoColor=44c183)
-![WAV Export](https://img.shields.io/badge/WAV_Export-1a1a1a?style=for-the-badge&logoColor=44c183)
 ![Zero Samples](https://img.shields.io/badge/Zero_Samples-1a1a1a?style=for-the-badge&logoColor=44c183)
 ![Infinite Sounds](https://img.shields.io/badge/Infinite_Sounds-1a1a1a?style=for-the-badge&logoColor=44c183)
 ![Hex Seeds](https://img.shields.io/badge/Hex_Seeds-1a1a1a?style=for-the-badge&logoColor=44c183)
