@@ -1,4 +1,3 @@
-import anime from "animejs/lib/anime.es.js";
 import { AudioEngine } from "./audio/audioEngine.js";
 import { SeedUtils } from "./utils/seedUtils.js";
 
