@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no"
+        />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+        />
+        <meta name="apple-mobile-web-app-title" content="BITGUN" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content="#000000" />
+
+        <title>Gunshot Arcade</title>
+
+        <link
+            rel="icon"
+            type="image/png"
+            href="/assets/favicon-96x96.png"
+            sizes="96x96"
+        />
+        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+        <link rel="shortcut icon" href="/assets/favicon.ico" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/assets/apple-touch-icon.png"
+        />
+        <meta name="apple-mobile-web-app-title" content="bitgun" />
+        <link rel="manifest" href="/assets/site.webmanifest" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Aldrich&family=Micro+5&family=Revalia&family=Sixtyfour+Convergence&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+            rel="stylesheet"
+        />
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <!-- CRT Effects -->
+        <div class="crt-overlay">
+            <div class="scanlines"></div>
+            <div class="noise"></div>
+            <div class="flicker"></div>
+        </div>
+
+        <!-- Arcade Machine Container -->
+        <div class="arcade-machine">
+            <!-- Top Bezel -->
+            <div class="arcade-bezel top-bezel">
+                <div class="bezel-lights">
+                    <div class="light red active"></div>
+                    <div class="light green"></div>
+                    <div class="light blue"></div>
+                    <div class="light yellow"></div>
+                </div>
+            </div>
+
+            <div class="arcade-screen">
+                <div class="screen-border">
+                    <div class="screen-content">
+                        <div class="title-display">
+                            <div class="title-container">
+                                <h1 id="bitgun-title" class="pixel-title">
+                                    <span class="char" data-char="Н">Н</span>
+                                    <span class="char" data-char="О">О</span>
+                                    <span class="char" data-char="Й">Й</span>
+                                    <span class="char" data-char="З">З</span>
+                                    <span class="char" data-char="А">А</span>
+                                </h1>
+                                <div
+                                    id="waveform-display"
+                                    class="waveform-overlay"
+                                ></div>
+                            </div>
+                            <div class="subtitle-glow">
+                                <span class="subtitle"
+                                    >8-BIT GUNSHOT ARCADE</span
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="status-panel">
+                            <div class="status-item">
+                                <span class="status-label">STATUS:</span>
+                                <span
+                                    id="system-status"
+                                    class="status-value ready"
+                                    >READY</span
+                                >
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">SEED:</span>
+                                <span id="current-seed" class="status-value"
+                                    >████████</span
+                                >
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">AUDIO:</span>
+                                <span id="audio-status" class="status-value"
+                                    >ONLINE</span
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Waveform -->
+                        <div class="visualizer-container">
+                            <div class="visualizer-border">
+                                <canvas
+                                    id="waveform-canvas"
+                                    class="waveform-canvas"
+                                ></canvas>
+                                <div class="visualizer-grid"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <div class="panel-section left-panel">
+                    <div class="joystick-area">
+                        <div class="joystick" id="joystick">
+                            <div class="joystick-stick">
+                                <div class="joystick-ball"></div>
+                            </div>
+                        </div>
+                        <div class="joystick-label">SPRAY</div>
+                    </div>
+                </div>
+
+                <div class="panel-section center-panel">
+                    <div class="button-array">
+                        <div class="pixel-button-container">
+                            <button
+                                id="generate-btn"
+                                class="pixel-button primary-btn"
+                            >
+                                <img
+                                    src="assets/gpbs.png"
+                                    alt="INIT"
+                                    class="btn-image"
+                                />
+                            </button>
+                        </div>
+
+                        <div class="pixel-button-container">
+                            <button
+                                id="play-btn"
+                                class="pixel-button action-btn"
+                            >
+                                <img
+                                    src="assets/rbgs.png"
+                                    alt="FIRE"
+                                    class="btn-image"
+                                />
+                            </button>
+                        </div>
+
+                        <div class="pixel-button-container">
+                            <button
+                                id="export-btn"
+                                class="pixel-button special-btn"
+                            >
+                                <img
+                                    src="assets/eabs.png"
+                                    alt="EXPORT"
+                                    class="btn-image"
+                                />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section right-panel">
+                    <div class="coin-slot">
+                        <div class="slot-opening"></div>
+                        <div class="slot-label">INSERT</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-panel">
+                <div class="seed-terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-title">SEED_LOADER_v1.0</span>
+                        <div class="terminal-status">
+                            <div class="status-dot active"></div>
+                            <span>ONLINE</span>
+                        </div>
+                    </div>
+                    <div class="terminal-content">
+                        <div class="terminal-prompt">
+                            <span class="prompt-symbol">></span>
+                            <input
+                                type="text"
+                                id="seed-input"
+                                class="terminal-input"
+                                placeholder="ENTER_HEX_SEED"
+                                maxlength="8"
+                            />
+                            <button id="load-seed-btn" class="terminal-execute">
+                                EXEC
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-lights left-lights">
+                <div class="side-light"></div>
+                <div class="side-light"></div>
+                <div class="side-light"></div>
+            </div>
+            <div class="side-lights right-lights">
+                <div class="side-light"></div>
+                <div class="side-light"></div>
+                <div class="side-light"></div>
+            </div>
+
+            <!-- Stickers -->
+            <div class="sprite-sticker scooot"></div>
+            <!--  <div class="sprite-sticker wtfitt"></div> -->
+        </div>
+
+        <script type="module" src="script.js"></script>
+    </body>
+</html>

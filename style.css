@@ -1,0 +1,1198 @@
+/* ==========================================================================
+   VARIABLES - RAINBOOM!7 PALETTE
+   ========================================================================== */
+:root {
+    --magenta: #ff0077;
+    --yellow: #fff955;
+    --green: #44c183;
+    --blue: #176de6;
+    --purple: #b752cb;
+    --pink: #ff4cf0;
+    --black: #1a1a1a;
+
+    /* Additional functional colors */
+    --light-black: #333333;
+    --dark-black: #000000;
+    --white: #ffffff;
+    --error: #ff4444;
+}
+
+/* ==========================================================================
+   BASE STYLES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+html,
+body {
+    height: 100%;
+    overflow-x: hidden;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: unset;
+    font-smooth: never;
+    font-family: "Press Start 2P", monospace;
+}
+
+body {
+    position: relative;
+    background-color: var(--dark-black);
+    color: var(--white);
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* Background */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("assets/pbei.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+    z-index: -2;
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at center,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.5) 60%,
+        rgba(0, 0, 0, 0.8) 100%
+    );
+    z-index: -1;
+}
+
+.sprite-sticker {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    image-rendering: pixelated;
+    pointer-events: none;
+    z-index: 15;
+    transform: rotate(-2deg);
+}
+
+.sprite-sticker.scooot {
+    top: 6px;
+    left: 60.9px;
+    background-image: url("assets/stickers/scooot.png");
+}
+
+.sprite-sticker.wtfitt {
+    top: 609px;
+    right: 26px;
+    background-image: url("assets/stickers/wtfitt.png");
+    transform: rotate(2deg);
+}
+
+/* ==========================================================================
+   CRT EFFECTS
+   ========================================================================== */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.02) 2px,
+        rgba(255, 255, 255, 0.02) 4px
+    );
+    animation: scanlines-move 0.1s linear infinite;
+}
+
+@keyframes scanlines-move {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(4px);
+    }
+}
+
+.noise {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="1" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.015"/></svg>');
+    animation: noise-move 0.3s infinite;
+}
+
+@keyframes noise-move {
+    0% {
+        transform: translate(0px, 0px);
+    }
+    25% {
+        transform: translate(-1px, -1px);
+    }
+    50% {
+        transform: translate(1px, 1px);
+    }
+    75% {
+        transform: translate(-1px, 1px);
+    }
+    100% {
+        transform: translate(0px, 0px);
+    }
+}
+
+.flicker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.005);
+    animation: flicker 0.2s infinite linear alternate;
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.98;
+    }
+}
+
+/* ==========================================================================
+   ARCADE MACHINE STRUCTURE
+   ========================================================================== */
+.arcade-machine {
+    width: 420px;
+    max-width: 90vw;
+    background: linear-gradient(145deg, #2a2a2a, var(--black));
+    border: 6px solid var(--black);
+    border-radius: 20px 20px 8px 8px;
+    box-shadow:
+        inset 0 0 30px rgba(0, 0, 0, 0.8),
+        0 0 60px rgba(23, 109, 230, 0.15),
+        0 20px 40px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Top Bezel */
+.arcade-bezel {
+    background: linear-gradient(145deg, var(--light-black), var(--black));
+    border-bottom: 3px solid #222;
+    padding: 1rem;
+}
+
+.bezel-lights {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.light {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #444;
+    background: var(--black);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.light.active {
+    box-shadow:
+        0 0 15px currentColor,
+        inset 0 0 8px currentColor;
+}
+
+.light.red {
+    color: var(--magenta);
+}
+.light.green {
+    color: var(--green);
+}
+.light.blue {
+    color: var(--blue);
+}
+.light.yellow {
+    color: var(--yellow);
+}
+
+.light.red.active {
+    background: var(--magenta);
+}
+.light.green.active {
+    background: var(--green);
+}
+.light.blue.active {
+    background: var(--blue);
+}
+.light.yellow.active {
+    background: var(--yellow);
+}
+
+/* ==========================================================================
+   SCREEN & DISPLAY
+   ========================================================================== */
+.arcade-screen {
+    background: var(--dark-black);
+    border: 8px solid #2a2a2a;
+    border-radius: 12px;
+    margin: 1rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+}
+
+.screen-border {
+    border: 3px solid var(--blue);
+    height: 100%;
+    background: radial-gradient(
+        ellipse at center,
+        var(--dark-black) 30%,
+        #0a0a0a 100%
+    );
+    position: relative;
+}
+
+.screen-content {
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Title Section */
+.title-display {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.title-container {
+    position: relative;
+    margin-bottom: 0.8rem;
+}
+
+.pixel-title {
+    font-size: clamp(1rem, 5vw, 1.4rem);
+    letter-spacing: 0.2em;
+    text-shadow:
+        2px 2px 0 var(--green),
+        4px 4px 0 var(--blue),
+        0 0 20px var(--pink);
+    position: relative;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.char {
+    display: inline-block;
+    color: var(--pink);
+    animation: char-glow 4s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 0.3s);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.char:nth-child(1) {
+    --i: 0;
+}
+.char:nth-child(2) {
+    --i: 1;
+}
+.char:nth-child(3) {
+    --i: 2;
+}
+.char:nth-child(4) {
+    --i: 3;
+}
+.char:nth-child(5) {
+    --i: 4;
+}
+
+@keyframes char-glow {
+    0%,
+    90% {
+        color: var(--pink);
+        text-shadow:
+            2px 2px 0 var(--green),
+            4px 4px 0 var(--blue),
+            0 0 20px var(--pink);
+    }
+    95% {
+        color: var(--yellow);
+        text-shadow:
+            2px 2px 0 var(--blue),
+            4px 4px 0 var(--purple),
+            0 0 30px var(--yellow);
+    }
+}
+
+.waveform-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 5;
+}
+
+.waveform-overlay.active {
+    opacity: 0.8;
+}
+
+.subtitle-glow {
+    position: relative;
+}
+
+.subtitle {
+    font-size: clamp(0.5rem, 3vw, 0.7rem);
+    color: var(--blue);
+    letter-spacing: 0.2em;
+    text-shadow: 0 0 15px var(--blue);
+    animation: subtitle-pulse 3s ease-in-out infinite;
+}
+
+@keyframes subtitle-pulse {
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Status Panel */
+.status-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 0.8rem;
+    background: rgba(23, 109, 230, 0.2);
+    border: 2px solid var(--purple);
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-size: clamp(0.5rem, 2vw, 0.6rem);
+}
+
+.status-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    text-align: center;
+}
+
+.status-label {
+    color: var(--blue);
+    font-size: clamp(0.4rem, 2vw, 0.5rem);
+}
+
+.status-value {
+    color: var(--pink);
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
+
+.status-value.ready {
+    color: var(--green);
+}
+.status-value.processing {
+    color: var(--yellow);
+}
+.status-value.error {
+    color: var(--error);
+}
+
+/* Visualizer */
+.visualizer-container {
+    border: 2px solid var(--green);
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 6px;
+    overflow: hidden;
+    flex: 1;
+    min-height: 120px;
+}
+
+.visualizer-border {
+    position: relative;
+    height: 100%;
+}
+
+.waveform-canvas {
+    width: 100%;
+    height: 100%;
+    background: rgba(68, 193, 131, 0.05);
+}
+
+.visualizer-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 15px 15px;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   CONTROL PANEL
+   ========================================================================== */
+.control-panel {
+    background: linear-gradient(145deg, var(--light-black), var(--black));
+    border-top: 3px solid #222;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1rem;
+    padding: 1.5rem;
+    align-items: center;
+}
+
+/* Joystick */
+.joystick-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.joystick {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #2a2a2a, var(--black));
+    border: 3px solid var(--purple);
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow:
+        0 4px 0 var(--purple),
+        0 4px 10px rgba(183, 82, 203, 0.3);
+}
+
+.joystick:active {
+    transform: translateY(2px);
+    box-shadow:
+        0 2px 0 var(--purple),
+        0 2px 5px rgba(183, 82, 203, 0.3);
+}
+
+.joystick-stick {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(145deg, var(--blue), var(--purple));
+    border: 2px solid var(--pink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.joystick-ball {
+    width: 8px;
+    height: 8px;
+    background: var(--magenta);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--magenta);
+}
+
+.joystick-label {
+    font-size: 8px;
+    color: var(--blue);
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+
+/* Arcade Buttons */
+.pixel-button-container {
+    display: inline-block;
+    position: relative;
+}
+
+.pixel-button {
+    width: 124px;
+    height: 124px;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    position: relative;
+    overflow: visible;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    border-radius: 50%;
+    outline: none;
+}
+
+.pixel-button:focus {
+    outline: none;
+}
+
+.pixel-button .btn-surface {
+    display: none;
+}
+
+.pixel-button .btn-glow {
+    display: none;
+}
+
+.btn-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    transition: transform 0.1s ease;
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+.pixel-button:active {
+    transform: translateY(4px);
+}
+
+.pixel-button::before,
+.pixel-button::after {
+    display: none;
+}
+
+.arcade-btn.pixel-button {
+    border-radius: 50% !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+.arcade-btn.pixel-button:hover {
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.arcade-btn.pixel-button:active {
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+@media (max-width: 768px) {
+    .pixel-button {
+        width: 80px !important;
+        height: 80px !important;
+    }
+}
+
+@media (max-width: 375px) {
+    .pixel-button {
+        width: 60px !important;
+        height: 60px !important;
+    }
+}
+
+@media (min-width: 414px) and (max-width: 480px) {
+    .pixel-button {
+        width: 70px !important;
+        height: 70px !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .pixel-button {
+        width: 90px !important;
+        height: 90px !important;
+    }
+}
+
+@media (min-width: 1025px) {
+    .pixel-button {
+        width: 110px !important;
+        height: 110px !important;
+    }
+}
+
+/* Update button array layout for pixel buttons */
+.button-array {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Coin Slot */
+.coin-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.slot-opening {
+    width: 50px;
+    height: 6px;
+    background: var(--dark-black);
+    border: 2px solid var(--purple);
+    border-radius: 3px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.slot-label {
+    font-size: clamp(0.4rem, 2vw, 0.5rem);
+    color: var(--blue);
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   TERMINAL & SEED INPUT
+   ========================================================================== */
+.bottom-panel {
+    background: linear-gradient(69deg, var(--light-black), var(--dark-black));
+    border-top: 3px solid #222;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.seed-terminal {
+    background: var(--dark-black);
+    border: 2px solid var(--green);
+    border-radius: 6px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 380px;
+}
+
+.terminal-header {
+    background: #0a3c7d;
+    padding: 0.4rem 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--green);
+}
+
+.terminal-title {
+    font-size: clamp(0.4rem, 2vw, 0.5rem);
+    color: var(--pink);
+    letter-spacing: 0.05em;
+}
+
+.terminal-status {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: clamp(0.5rem, 1.8vw, 0.4rem);
+    color: var(--blue);
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: status-blink 2s infinite;
+    position: relative;
+    top: 0;
+}
+
+@keyframes status-blink {
+    0%,
+    60% {
+        opacity: 1;
+    }
+    61%,
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.terminal-content {
+    padding: 0.8rem;
+}
+
+.terminal-prompt {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.8rem;
+    align-items: center;
+    height: auto;
+    min-height: 36px;
+}
+
+.prompt-symbol {
+    color: var(--green);
+    font-size: clamp(0.7rem, 3vw, 0.8rem);
+    font-weight: bold;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    color: var(--pink);
+    font-family: "Press Start 2P", monospace;
+    font-size: clamp(0.5rem, 2.5vw, 0.6rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    outline: none;
+    padding: 0.4rem 0;
+    border-bottom: 2px solid var(--green);
+    transition: border-color 0.3s ease;
+    height: 32px;
+}
+
+.terminal-input:focus {
+    border-bottom-color: var(--green);
+    box-shadow: 0 2px 8px rgba(68, 193, 131, 0.3);
+}
+
+.terminal-input::placeholder {
+    color: var(--purple);
+    opacity: 0.7;
+}
+
+.terminal-execute {
+    background: var(--green);
+    border: 2px solid #5fdfa0;
+    color: var(--dark-black);
+    font-family: "Press Start 2P", monospace;
+    font-size: clamp(0.4rem, 2vw, 0.5rem);
+    padding: 0.6rem 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow:
+        0 3px 0 #2a7750,
+        0 3px 8px rgba(68, 193, 131, 0.3);
+    white-space: nowrap;
+}
+
+.terminal-execute:hover {
+    background: #5fdfa0;
+    color: var(--dark-black);
+    transform: translateY(-1px);
+    box-shadow:
+        0 4px 0 #2a7750,
+        0 4px 12px rgba(68, 193, 131, 0.4);
+}
+
+.terminal-execute:active {
+    transform: translateY(1px);
+    box-shadow:
+        0 2px 0 #2a7750,
+        0 2px 4px rgba(68, 193, 131, 0.3);
+}
+
+/* ==========================================================================
+   SIDE LIGHTS & DECORATIONS
+   ========================================================================== */
+.side-lights {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: 5;
+}
+
+.left-lights {
+    left: -8px;
+}
+
+.right-lights {
+    right: -8px;
+}
+
+.side-light {
+    width: 12px;
+    height: 30px;
+    background: linear-gradient(90deg, var(--purple), var(--blue));
+    border: 1px solid var(--pink);
+    border-radius: 6px;
+    box-shadow: 0 0 15px rgba(23, 109, 230, 0.4);
+    animation: side-light-pulse 4s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 0.7s);
+}
+
+.side-light:nth-child(1) {
+    --i: 0;
+}
+.side-light:nth-child(2) {
+    --i: 1;
+}
+.side-light:nth-child(3) {
+    --i: 2;
+}
+
+@keyframes side-light-pulse {
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+.glitch-intense {
+    animation: glitch-intense 0.5s ease-out;
+}
+
+@keyframes glitch-intense {
+    0% {
+        transform: translate(0);
+        filter: hue-rotate(0deg) brightness(1);
+    }
+    20% {
+        transform: translate(-3px, 2px);
+        filter: hue-rotate(90deg) brightness(1.3);
+    }
+    40% {
+        transform: translate(3px, -2px);
+        filter: hue-rotate(180deg) brightness(0.8);
+    }
+    60% {
+        transform: translate(-2px, 2px);
+        filter: hue-rotate(270deg) brightness(1.5);
+    }
+    80% {
+        transform: translate(2px, -1px);
+        filter: hue-rotate(360deg) brightness(1.1);
+    }
+    100% {
+        transform: translate(0);
+        filter: hue-rotate(0deg) brightness(1);
+    }
+}
+
+.error-shake {
+    animation: error-shake 0.6s ease-out;
+}
+
+@keyframes error-shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    10% {
+        transform: translateX(-8px);
+    }
+    20% {
+        transform: translateX(8px);
+    }
+    30% {
+        transform: translateX(-6px);
+    }
+    40% {
+        transform: translateX(6px);
+    }
+    50% {
+        transform: translateX(-4px);
+    }
+    60% {
+        transform: translateX(4px);
+    }
+    70% {
+        transform: translateX(-2px);
+    }
+    80% {
+        transform: translateX(2px);
+    }
+    90% {
+        transform: translateX(-1px);
+    }
+}
+
+/* Fire pulse animation */
+.fire-pulse {
+    animation: fire-pulse 0.1s ease-out;
+}
+
+@keyframes fire-pulse {
+    0% {
+        box-shadow: 0 0 5px rgba(68, 193, 131, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 249, 85, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(68, 193, 131, 0.5);
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN - IMPROVED FOR SMALL SCREENS
+   ========================================================================== */
+@media (max-width: 768px) {
+    body {
+        padding: 0.5rem;
+    }
+
+    .arcade-machine {
+        width: 90%;
+        max-width: 100%;
+        max-height: 95vh;
+    }
+
+    .control-panel {
+        grid-template-columns: 1fr 2fr 1fr;
+        padding: 0.8rem;
+        gap: 0.8rem;
+        height: auto;
+    }
+
+    .button-array {
+        gap: 0.6rem;
+    }
+
+    .arcade-btn {
+        width: 60px;
+        height: 60px;
+    }
+
+    .side-lights {
+        display: none;
+    }
+
+    .bottom-panel {
+        padding: 0.6rem;
+    }
+
+    .seed-terminal {
+        max-width: none;
+    }
+
+    .coin-slot {
+        width: 50px;
+    }
+}
+
+/* Small mobile devices (iPhone SE, etc) */
+@media (max-width: 375px) {
+    .terminal-prompt {
+        grid-template-columns: auto 1fr auto;
+        gap: 0.4rem;
+        min-height: 30px;
+    }
+
+    .prompt-symbol {
+        font-size: 0.6rem;
+    }
+
+    .terminal-input {
+        font-size: 0.45rem;
+        height: 28px;
+    }
+
+    .terminal-execute {
+        font-size: 0.4rem;
+        padding: 0.4rem 0.5rem;
+    }
+
+    .status-panel {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .status-item {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .visualizer-container {
+        min-height: 100px;
+    }
+
+    .arcade-bezel {
+        padding: 0.6rem;
+    }
+
+    .bezel-lights {
+        gap: 0.8rem;
+    }
+
+    .light {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* iPhone Pro Max and other large phones */
+@media (min-width: 414px) and (max-width: 480px) {
+    .pixel-title {
+        font-size: 1.1rem;
+    }
+
+    .arcade-btn {
+        width: 65px;
+        height: 65px;
+    }
+
+    .btn-svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Tablets and medium screens */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .arcade-machine {
+        max-width: 700px;
+        height: auto;
+        aspect-ratio: 0.7/1;
+    }
+
+    .pixel-title {
+        font-size: 1.6rem;
+    }
+
+    .arcade-btn {
+        width: 90px;
+        height: 90px;
+    }
+
+    .joystick {
+        width: 70px;
+        height: 70px;
+    }
+
+    .joystick-stick {
+        width: 30px;
+        height: 30px;
+    }
+
+    .btn-svg {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* Large screens */
+@media (min-width: 1025px) {
+    .arcade-machine {
+        max-width: 800px;
+    }
+
+    .pixel-title {
+        font-size: 1.8rem;
+        letter-spacing: 0.2em;
+    }
+
+    .arcade-btn {
+        width: 100px;
+        height: 100px;
+    }
+
+    .btn-icon {
+        font-size: 1.2rem;
+    }
+
+    .btn-label {
+        font-size: 0.5rem;
+    }
+
+    .joystick {
+        width: 80px;
+        height: 80px;
+    }
+
+    .joystick-stick {
+        width: 35px;
+        height: 35px;
+    }
+
+    .joystick-ball {
+        width: 10px;
+        height: 10px;
+    }
+
+    .btn-svg {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .arcade-btn:active {
+        transform: translateY(3px) scale(0.95);
+    }
+
+    .joystick:active {
+        transform: translateY(2px) scale(0.9);
+    }
+
+    .terminal-execute:hover {
+        transform: none;
+        background: var(--green);
+        color: var(--dark-black);
+    }
+
+    .terminal-execute:active {
+        transform: translateY(1px) scale(0.95);
+    }
+
+    /* Increase touch targets */
+    .arcade-btn,
+    .joystick,
+    .terminal-execute {
+        touch-action: manipulation;
+    }
+}
